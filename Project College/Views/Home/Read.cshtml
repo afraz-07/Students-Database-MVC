@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Project_College.Student>
+
+@{
+    ViewBag.Title = "Read";
+}
+
+<h2 class="mt-4 mb-4">Student Records</h2>
+
+<table class="table table-bordered table-striped block-center d-block " width="100%">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th width="200px">
+            @Html.DisplayNameFor(model => model.DOB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gender)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MobileNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HSC_Percentage)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Department)
+        </th>
+        <th>Buttons</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DOB)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MobileNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HSC_Percentage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Department.Departments)
+        </td>
+        <td width="800px">
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id } , new {@class="btn btn-primary"}) 
+            @Html.ActionLink("Details", "Details", new { id=item.Id }, new { @class = "btn btn-success" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>
+
+<style>
+    .container{
+        margin:0;
+        padding:0;
+        width:100%;
+        
+    }
+
+    .body-content{
+        margin:0;
+        margin-left:7%;
+    }
+</style>
+
+
