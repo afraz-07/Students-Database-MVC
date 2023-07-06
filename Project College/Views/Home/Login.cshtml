@@ -2,81 +2,83 @@
 
 @{
     ViewBag.Title = "Login";
+    ViewBag.NavbarColorClass = "navbar-dark bg-success";
 }
 
 @{
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    <h3  style="text-align:center; padding:50px;">Staff Login</h3>
-    <div class="fle">
-        <div class="form-horizontal align-items-center">
+<div id="form">
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <h3 style="text-align:center; padding:5vh 0 12vh 35px;  ">Staff Login</h3>
+
+        <div class="container h-100 ms-5">
+            <div class="row align-items-center h-100">
+                <div class="col-sm-4 offset-sm-4">
 
 
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            <div class="row mb-3">
-                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-1" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                    <span class="text-danger">@ViewBag.Id</span>
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="row mb-3">
+                        @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-1">
+                            @Html.TextBoxFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                            <span class="text-danger">@ViewBag.Id</span>
+                        </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-3" })
+                        <div class="col-md-1">
+                            @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            <span class="text-danger">@ViewBag.Pass</span>
+                        </div>
+                    </div>
+
+
+
+                    <div class="form-group" id="flex">
+
+
+
+                        @Html.ActionLink("Sign Up", "Reg", "Home", null, new { @class = "btn btn-outline-success" })
+
+                        <div class="col-md-offset-2">
+                            <input type="submit" value="Login" class="btn btn-success" style="width:82px" />
+                        </div>
+                    </div>
+
+
+
+
                 </div>
             </div>
-
-
-            <div class="row mb-3">
-                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-1" })
-                <div class="col-md-10">
-                    @Html.PasswordFor(model => model.Password, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                    <span class="text-danger">@ViewBag.Pass</span>
-                </div>
-            </div>
-
-
-
-            <div class="form-group" id="flex">
-
-
-
-                @Html.ActionLink("Sign Up", "Reg", "Home", null, new { @class = "btn btn-outline-primary" })
-
-                <div class="col-md-offset-2">
-                    <input type="submit" value="Login" class="btn btn-outline-success" />
-                </div>
-            </div>
-
-
         </div>
-    </div>
-}
-
-<style>
-
-
-    .btn a {
-        text-decoration: none;
     }
+</div>
 
-        .btn a:hover {
-            color: white;
-        }
+        <style>
+            #form {
+                border: 1px solid green;
+                padding-bottom: 15vh;
+                margin-top: 8vh;
+                background-image: url(https://img.freepik.com/premium-vector/green-background-wide-banner-design-template_213291-91.jpg?w=900);
+                background-position:center;
+                background-size:cover;
+            }
 
-    .btn :hover {
-        color: white;
-    }
 
-    #flex {
-        display: flex;
-        gap: 130px;
-        margin: 30px 0;
-    }
 
-    .fle {
-        padding-left: 540px
-    }
-</style>
+            #flex {
+                display: flex;
+                gap: 120px;
+                margin: 30px 0;
+            }
+        </style>

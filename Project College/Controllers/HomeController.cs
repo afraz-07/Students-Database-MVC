@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Project_College.Controllers
 {
@@ -14,6 +15,7 @@ namespace Project_College.Controllers
             return View();
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
@@ -49,14 +51,47 @@ namespace Project_College.Controllers
 
 
 
-        
 
+        [Authorize]        
         [HttpGet]
-        public ActionResult Read(Student s) 
+
+        public ActionResult Read(Student s, string searchtxt, string SortOrder, int Pgnumber = 1)
         {
             CollegeDbEntities Db = new CollegeDbEntities();
 
+            ViewBag.SortOrder = SortOrder;
+
+
             var list = Db.Students.ToList();
+
+            if (searchtxt != null)
+            {
+                list = Db.Students.Where(x => x.Name.Contains(searchtxt) || x.Email.Contains(searchtxt) || x.Gender.Contains(searchtxt)).ToList();
+            }
+
+            switch (SortOrder)
+            {
+                case "Asc":
+                    {
+                        list = list.OrderBy(x => x.Name).ToList();
+                        break;
+                    }
+                case "Desc":
+                    {
+                        list = list.OrderByDescending(x => x.Name).ToList();
+                        break;
+                    }
+                default:
+                    {
+                        list = list.OrderBy(x => x.Name).ToList();
+                        break;
+                    }
+            }
+
+            ViewBag.Ttlpgs = Math.Ceiling(list.Count() / 6.0);
+            ViewBag.PageNumber = Pgnumber;
+
+            list = list.Skip((Pgnumber - 1) * 6).Take(6).ToList();
 
             return View(list);
         }
@@ -166,9 +201,19 @@ namespace Project_College.Controllers
 
             if (user != null)
             {
+                FormsAuthentication.SetAuthCookie(st.UserId, false);
                 return RedirectToAction("Index");
             }
-            return RedirectToAction("Reg");
+            return View();
+        }
+
+
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index");
         }
     }
 }

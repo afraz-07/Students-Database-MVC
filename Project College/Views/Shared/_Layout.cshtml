@@ -10,7 +10,7 @@
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
 </head>
 <body style="padding-top:0">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <nav class="navbar navbar-expand-lg navbar-dark @(ViewBag.NavbarColorClass)">
         <div class="container-fluid">
             <a class="navbar-brand light fs-4" href="#">Mazharul Uloom College</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -21,20 +21,40 @@
                     <li class="nav-item nav-link active">
                         @Html.ActionLink("Home", "Index", "Home", new { @class = "Navlink" })
                     </li>
-                    <li class="nav-item nav-link active">
-                        @Html.ActionLink("Create", "Create", "Home", new { @class = "Navlink" })
-                    </li>
-                    <li class="nav-item nav-link active">
-                        @Html.ActionLink("Records", "Read", "Home", new { @class = "Navlink" })
-                    </li>
 
-                    <li class="nav-item nav-link active">
-                        @Html.ActionLink("Register", "Reg", "Home", new { @class = "end Navlink" })
-                    </li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li class="nav-item nav-link active">
+                            @Html.ActionLink("Create", "Create", "Home", new { @class = "Navlink" })
+                        </li>
+                        <li class="nav-item nav-link active">
+                            @Html.ActionLink("Records", "Read", "Home", new { @class = "Navlink" })
+                        </li>
+                        <li class="nav-item nav-link active">
+                            @Html.ActionLink("Logout", "Logout", "Home", new { @class = "Navlink" })
+                        </li>
 
-                    <li class="nav-item nav-link active">
-                        @Html.ActionLink("Logout", "Login", "Home", new { @class = "end Navlink" })
-                    </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item nav-link active">
+                            @Html.ActionLink("Register", "Reg", "Home", new { @class = "Navlink" })
+                        </li>
+
+                        <li class="nav-item nav-link active">
+                            @Html.ActionLink("Login", "Login", "Home", new { @class = "Navlink" })
+                        </li>
+                    }
+
+
+
+
+
+
+
+
+
+
                 </ul>
             </div>
         </div>
@@ -46,11 +66,10 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - MUC Application</p>
         </footer>
     </div>
     <script src="~/Scripts/jquery-3.7.0.min.js"></script>
-    @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
     <script src="~/Scripts/moment.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
@@ -64,10 +83,6 @@
             text-decoration: none;
         }
 
-        .end {
-            position: relative;
-            left: 500px;
-        }
     </style>
 </body>
 </html>

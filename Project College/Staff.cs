@@ -27,6 +27,7 @@ namespace Project_College
         public string Gender { get; set; }
 
         [Required(ErrorMessage = "Enter Your Mobile Number")]
+        [Display (Name = "MobileNo")]
         public string MobileNumber { get; set; }
 
         [Required(ErrorMessage = "Enter Your Email")]
